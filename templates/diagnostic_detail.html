@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ data.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="detail-container">
+
+    <!-- HERO -->
+    <div class="hero">
+        <img src="{{ data.image }}">
+        <div class="hero-text">
+            <h1>{{ data.title }}</h1>
+            <p>{{ data.description }}</p>
+            <a href="/appointment" class="btn">Book Appointment</a>
+        </div>
+    </div>
+
+    <!-- DETAILS -->
+    <div class="grid">
+
+        <div class="card">
+            <h3>👨‍⚕️ Who Needs This?</h3>
+            <p>{{ data.who_needs }}</p>
+        </div>
+
+        <div class="card">
+            <h3>⚙️ How It Works</h3>
+            <p>{{ data.how_it_works }}</p>
+        </div>
+
+        <div class="card">
+            <h3>🧪 Procedure</h3>
+            <p>{{ data.procedure }}</p>
+        </div>
+
+        <div class="card">
+            <h3>📋 Preparation</h3>
+            <p>{{ data.preparation }}</p>
+        </div>
+
+        <div class="card">
+            <h3>⚠️ Risks</h3>
+            <p>{{ data.risks }}</p>
+        </div>
+
+    </div>
+
+    <a href="/" class="back">⬅ Back</a>
+
+</div>
+
+</body>
+</html>

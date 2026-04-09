@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Appointments</title>
+
+  <style>
+  body {
+    font-family: 'DM Sans', sans-serif;
+    margin: 0;
+    padding: 40px;
+
+    /* 🌿 OUTSIDE BACKGROUND (Homepage style) */
+    background: linear-gradient(135deg, #062a20, #0b4d38, #0d5e45);
+    min-height: 100vh;
+    color: #fff;
+  }
+
+  h2 {
+    margin-bottom: 25px;
+    color: #ffffff;
+  }
+
+  .msg {
+    background: rgba(0, 255, 150, 0.15);
+    color: #00ffae;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    font-weight: bold;
+  }
+
+  .appt-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  /* 📦 CARD STYLE */
+  .appt-card {
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a2a24;
+    padding: 22px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    transition: 0.3s;
+  }
+
+  .appt-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+  }
+
+  .appt-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #0a8f6e;
+  }
+
+  .appt-info {
+    margin: 6px 0;
+    font-size: 0.95rem;
+  }
+
+  .status {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  .pending { color: #f4a261; }
+  .cancelled { color: #e63946; }
+  .confirmed { color: #2a9d8f; }
+
+  .cancel-btn {
+    display: inline-block;
+    margin-top: 14px;
+    color: #e63946;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .cancel-btn:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+
+<body>
+
+<h2>My Appointments</h2>
+
+<!-- ✅ Message -->
+{% if request.args.get('msg') %}
+  <div class="msg">
+    {{ request.args.get('msg') }}
+  </div>
+{% endif %}
+
+{% if appointments and appointments|length > 0 %}
+
+<div class="appt-container">
+
+  {% for appt in appointments %}
+  <div class="appt-card">
+
+    <div class="appt-title">
+      {{ appt["patient_name"] }}
+    </div>
+
+    <div class="appt-info">👨‍⚕️ Doctor: {{ appt["doctor"] }}</div>
+    <div class="appt-info">📅 Date: {{ appt["date"] }}</div>
+    <div class="appt-info">⏰ Time: {{ appt["time"] }}</div>
+
+    <!-- ✅ Status -->
+    <div class="status">
+      {% if appt["status"] == "Pending" %}
+        <span class="pending">Pending</span>
+      {% elif appt["status"] == "Cancelled" %}
+        <span class="cancelled">Cancelled</span>
+      {% else %}
+        <span class="confirmed">Confirmed</span>
+      {% endif %}
+    </div>
+
+    <!-- ✅ Cancel -->
+    {% if appt["status"] != "Cancelled" %}
+      <a href="/cancel/{{ appt['id'] }}"
+         class="cancel-btn"
+         onclick="return confirm('Cancel this appointment?')">
+         Cancel Appointment
+      </a>
+    {% else %}
+      <div class="cancelled">❌ Already Cancelled</div>
+    {% endif %}
+
+  </div>
+  {% endfor %}
+
+</div>
+
+{% else %}
+  <p>No appointments found.</p>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register – Multicare AI Hospital</title>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="auth-page">
+  <div class="auth-bg">
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+  </div>
+  <div class="auth-container">
+    <a href="/" class="logo auth-logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="21" stroke="white" stroke-width="2"/><path d="M22 10L22 34M10 22L34 22" stroke="white" stroke-width="3.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="logo-text"><span class="logo-name">Multicare</span><span class="logo-tag">AI Hospital</span></div>
+    </a>
+    <div class="auth-card">
+      <h2>Create Account</h2>
+      <p class="auth-sub">Join Multicare for smarter healthcare access</p>
+
+      {% if error %}<div class="form-error show">{{ error }}</div>{% endif %}
+
+      <form action="/register" method="POST">
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> Full Name</label>
+          <input type="text" name="name" placeholder="Your full name" required/>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-envelope"></i> Email</label>
+          <input type="email" name="email" placeholder="you@example.com" autocomplete="new-email" required>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-phone"></i> Phone Number</label>
+          <input type="tel" name="phone" placeholder="+91 XXXXX XXXXX"/>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-lock"></i> Password</label>
+          <input type="password" name="password" placeholder="Min. 6 characters" required minlength="6"/>
+        </div>
+        <button type="submit" class="btn btn-primary full-width">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+      </form>
+      <p class="auth-switch">Already have an account? <a href="/login">Login here</a></p>
+      <a href="/" class="auth-back"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>
